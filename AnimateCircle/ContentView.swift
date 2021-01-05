@@ -8,14 +8,32 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct OriginView: View {
+ @State private var animationAmount: CGFloat = 1
     var body: some View {
-        Text("Hello, World!")
+        Button("") {
+        }
+        .padding(5)
+        .background(Color.red)
+        .clipShape(Circle())
+        .overlay(
+            Circle()
+                .stroke(Color.red)
+                .scaleEffect(animationAmount)
+                .opacity(Double(2 - animationAmount))
+                .animation(
+                    Animation.easeOut(duration: 2)
+                        .repeatForever(autoreverses: true)
+                )
+        )
+        .onAppear {
+            self.animationAmount = 2
+        }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        OriginView()
     }
 }
